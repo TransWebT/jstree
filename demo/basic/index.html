@@ -39,6 +39,9 @@
 	<h1>Callback function data demo</h1>
 	<div id="clbk" class="demo"></div>
 
+	<h1>CRUD demo</h1>
+	<div id="crud" class="demo"></div>
+
 	<h1>Interaction and events demo</h1>
 	<button id="evts_button">select node with id 1</button> <em>either click the button or a node in the tree</em>
 	<div id="evts" class="demo"></div>
@@ -115,6 +118,51 @@
 					cb(["Child"]);
 				}
 			}
+		}
+	});
+
+	// CRUD demo
+	$('#crud').jstree({
+		'core' : {
+			'animation' : 0,
+    		'check_callback' : true,
+    		'themes' : { "stripes" : true },
+			'data' : [
+				{
+					"text" : "Root node",
+					"state" : { "opened" : true },
+					"children" : [
+						{
+							"text" : "Child node 1",
+							"state" : { "selected" : true },
+							"icon" : "jstree-file"
+						},
+						{ "text" : "Child node 2", "state" : { "disabled" : true } }
+					]
+				}
+			],
+			'types' : {
+    			'#' : {
+      				'max_children' : 1,
+      				'max_depth' : 4,
+      				'valid_children' : ["root"]
+    			},
+    			'root' : {
+      				// 'icon' : "/static/3.3.8/assets/images/tree_icon.png",
+      				'valid_children' : ["default"]
+    			},
+    			'default' : {
+    				"valid_children" : ["default","file"]
+    			},
+    			'file' : {
+      				"icon" : "glyphicon glyphicon-file",
+					"valid_children" : []
+    			}
+  			},
+  			'plugins' : [
+    			"contextmenu", "dnd", "search",
+    			"state", "types", "wholerow"
+  			]
 		}
 	});
 
